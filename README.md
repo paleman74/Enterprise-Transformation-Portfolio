@@ -6,4 +6,5 @@ My career as Enterprise Transformation Leader and Architect
 │   ├── screenshots
 │   ├── metrics
 │   └── photos
+
 Self-Service-Transformation
