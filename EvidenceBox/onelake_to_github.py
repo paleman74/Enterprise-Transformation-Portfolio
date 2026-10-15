@@ -13,8 +13,8 @@ HARD_LIMIT    = 2 * 1024**3      # LFS max per file on GitHub (2 GB; confirm for
 BATCH_BYTES   = 500 * 1024**2    # push in ~500 MB batches to avoid timeouts/pack limits
 BATCH_FILES   = 200
 
-# Token: store in Azure Key Vault, never in the notebook
-TOKEN = notebookutils.credentials.getSecret("https://<vault>.vault.azure.net/", "github-pat")
+GH_USER = "paleman74"
+TOKEN   = "<paste-personal-access-token-here>"   # must be a PAT; GitHub rejects account passwords for git
 
 # Cell 2 - helpers --------------------------------------------------------
 def git(*args, cwd=WORKDIR, check=True):
@@ -26,7 +26,7 @@ def git(*args, cwd=WORKDIR, check=True):
 def setup_repo():
     if os.path.exists(WORKDIR):
         shutil.rmtree(WORKDIR)
-    url = f"https://x-access-token:{TOKEN}@{REPO_URL}"
+    url = f"https://{GH_USER}:{TOKEN}@{REPO_URL}"
     subprocess.run(["git", "clone", "--depth", "1", "-b", BRANCH, url, WORKDIR], check=True,
                    capture_output=True)
     git("config", "user.name", "fabric-migration")
